@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrusel de Imágenes Ajustadas al Alto</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    .fotos {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .slides {
+      display: flex;
+      width: 500%;
+      height: 100%;
+      animation: slide 50s infinite;
+    }
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+    }
+    .slide img {
+      height: 100vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(0%); }
+      20%  { transform: translateX(0%); }
+
+      25%  { transform: translateX(-100vw); }
+      40%  { transform: translateX(-100vw); }
+
+      45%  { transform: translateX(-200vw); }
+      60%  { transform: translateX(-200vw); }
+
+      65%  { transform: translateX(-300vw); }
+      80%  { transform: translateX(-300vw); }
+
+      85%  { transform: translateX(-400vw); }
+      100% { transform: translateX(-400vw); }
+    }
+  </style>
+</head>
+<body>
+  <div class="fotos">
+    <div class="slides">
+      <div class="slide"><img src="https://www.dropbox.com/scl/fi/gveq8wjcwxzj7uh2o3id5/1.jpg?rlkey=8qq0jmu8iftv7iz9da8vdktvh&st=ufitvocq&dl=0&raw=1" alt="Imagen 1" /></div>
+      <div class="slide"><img src="https://www.dropbox.com/scl/fi/5u8qr6w7r5l5tnss0flla/2.jpg?rlkey=jxard5zisb3b63bh3tr5icqc1&st=2f3c22h9&dl=0&raw=1" alt="Imagen 2" /></div>
+      <div class="slide"><img src="https://www.dropbox.com/scl/fi/mih85qk9avmt2xsj2ydfy/3.jpg?rlkey=c6u6j3dkllnytlp1w0mleox2m&st=jtxoflxc&dl=0&raw=1" alt="Imagen 3" /></div>
+      <div class="slide"><img src="https://www.dropbox.com/scl/fi/9ooqbi25chz4n111bbhgv/4.jpg?rlkey=4ctzpojs27pichayh36498m68&st=q4qjmydq&dl=0&raw=1" alt="Imagen 4" /></div>
+      <div class="slide"><img src="https://www.dropbox.com/scl/fi/i6y0kxzzu9fgl11fr2449/5.jpg?rlkey=wl26axo26jnye4mm53tzh17an&st=dj7wlsl7&dl=0&raw=1" alt="Imagen 5" /></div>
+    </div>
+  </div>
+</body>
+</html>
