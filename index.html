@@ -26,7 +26,7 @@
     .slides {
       display: flex;
       height: 100%;
-      animation: slide 50s infinite; /* Duración inicial, JS la cambia */
+      animation: slide 50s infinite; /* Se ajusta con JS */
     }
     .slide {
       width: 100vw;
@@ -47,7 +47,7 @@
 <body>
   <div class="fotos">
     <div class="slides">
-      <!-- Hasta 16 imágenes, agrega tus URLs reales -->
+      <!-- Hasta 16 imágenes -->
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/0_z6c9hl.jpg" alt="Imagen 0" /></div>
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/1_cvt4d6.jpg" alt="Imagen 1" /></div>
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/2_lxxpsj.jpg" alt="Imagen 2" /></div>
@@ -68,11 +68,20 @@
   </div>
 
   <script>
-    // Cambia este número para usar de 1 hasta 16 imágenes:
+    // Cambia este número para mostrar de 1 a 16 imágenes
     const slideCount = 7;
 
     const slidesContainer = document.querySelector('.slides');
     const allSlides = slidesContainer.querySelectorAll('.slide');
+
+    // ✅ Forzar recarga SIN caché: agregar ?t=timestamp a cada imagen
+    allSlides.forEach(slide => {
+      const img = slide.querySelector('img');
+      if (img) {
+        const originalSrc = img.getAttribute('src').split('?')[0];
+        img.setAttribute('src', `${originalSrc}?t=${Date.now()}`);
+      }
+    });
 
     // Elimina slides sobrantes
     allSlides.forEach((slide, index) => {
