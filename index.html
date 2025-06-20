@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
- <script>
-    // CONTADOR DE FOTOS. CAMBIE LA VARIABLE PARA ELEGIR CUANTAS FOTOS MOSTRAR EN LA TV
-    const slideCount = 4;
-
-    const slidesContainer = document.querySelector('.slides');
-    const allSlides = slidesContainer.querySelectorAll('.slide');
-
-    // ✅ Forzar recarga SIN caché: agregar ?t=timestamp a cada imagen
-    allSlides.forEach(slide => {
-      const img = slide.querySelector('img');
-      if (img) {
-        const originalSrc = img.getAttribute('src').split('?')[0];
-        img.setAttribute('src', `${originalSrc}?t=${Date.now()}`);
-      }
-    });
-
-    // Elimina slides sobrantes
-    allSlides.forEach((slide, index) => {
-      if (index >= slideCount) {
-        slide.remove();
-      }
-    });
-
-    // Ajusta ancho y duración de animación proporcional
-    slidesContainer.style.width = `calc(${slideCount} * 100vw)`;
-    slidesContainer.style.animation = `slide ${slideCount * 10}s infinite`;
-
-    // Crea animación dinámica
-    const style = document.createElement('style');
-    let keyframes = `@keyframes slide {`;
-
-    for (let i = 0; i < slideCount; i++) {
-      const percentStart = (i / slideCount) * 100;
-      const percentEnd = ((i + 1) / slideCount) * 100 - (100 / slideCount) * 0.2;
-      const translateX = -i * 100;
-
-      keyframes += `
-        ${percentStart}% { transform: translateX(${translateX}vw); }
-        ${percentEnd}% { transform: translateX(${translateX}vw); }
-      `;
-    }
-
-    keyframes += `100% { transform: translateX(${- (slideCount - 1) * 100}vw); } }`;
-
-    style.textContent = keyframes;
-    document.head.appendChild(style);
-  </script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Instituto de música PUCV</title>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // CONTADOR DE FOTOS. CAMBIE LA VARIABLE PARA ELEGIR CUANTAS FOTOS MOSTRAR EN LA TV
+      const slideCount = 4;
+
+      const slidesContainer = document.querySelector('.slides');
+      const allSlides = slidesContainer.querySelectorAll('.slide');
+
+      // ✅ Forzar recarga SIN caché: agregar ?t=timestamp a cada imagen
+      allSlides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (img) {
+          const originalSrc = img.getAttribute('src').split('?')[0];
+          img.setAttribute('src', `${originalSrc}?t=${Date.now()}`);
+        }
+      });
+
+      // Elimina slides sobrantes
+      allSlides.forEach((slide, index) => {
+        if (index >= slideCount) {
+          slide.remove();
+        }
+      });
+
+      // Ajusta ancho del contenedor
+      slidesContainer.style.width = `calc(${slideCount} * 100vw)`;
+
+      // Crea la animación dinámica
+      const style = document.createElement('style');
+      let keyframes = `@keyframes slide {`;
+
+      for (let i = 0; i < slideCount; i++) {
+        const percentStart = (i / slideCount) * 100;
+        const percentEnd = ((i + 1) / slideCount) * 100 - (100 / slideCount) * 0.2;
+        const translateX = -i * 100;
+
+        keyframes += `
+          ${percentStart}% { transform: translateX(${translateX}vw); }
+          ${percentEnd}% { transform: translateX(${translateX}vw); }
+        `;
+      }
+
+      keyframes += `100% { transform: translateX(${- (slideCount - 1) * 100}vw); } }`;
+
+      style.textContent = keyframes;
+      document.head.appendChild(style);
+
+      // Inicia la animación con la duración dinámica
+      slidesContainer.style.animation = `slide ${slideCount * 10}s infinite`;
+    });
+  </script>
+
   <style>
     * {
       margin: 0;
@@ -73,7 +79,7 @@
     .slides {
       display: flex;
       height: 100%;
-      animation: slide 50s infinite; /* Se ajusta con JS */
+      transition: transform 1s ease-in-out; /* Transición para el movimiento de las imágenes */
     }
     .slide {
       width: 100vw;
@@ -90,11 +96,11 @@
       display: block;
     }
   </style>
+
 </head>
 <body>
   <div class="fotos">
     <div class="slides">
-      <!-- Hasta 16 imágenes -->
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/1_auoxiq.jpg" alt="Imagen 1" /></div>
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/2_mudqpe.jpg" alt="Imagen 2" /></div>
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/3_sz2uwq.jpg" alt="Imagen 3" /></div>
@@ -108,7 +114,5 @@
       <div class="slide"><img src="https://res.cloudinary.com/dqhgxrn8q/image/upload/11_s3vz2r.jpg" alt="Imagen 11" /></div>  
     </div>
   </div>
-
- 
 </body>
 </html>
